@@ -1,0 +1,39 @@
+﻿@using Vuelos.Entidades
+@model Pasajero
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Registro
+            </div>
+            <div class="panel-body">
+
+                <!--Formulario aquí-->
+                <form action="@Url.Action("Guardar","Pasajero")">
+                    <input type="hidden" class="form-control" name="id" value="@Model.Id">
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <input class="form-control" name="nombre" value="@if (Model.Id != 0) { @Model.Nombre}" />
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido Paterno:</label>
+                        <input class="form-control" name="apellidoPaterno" value="@if (Model.Id != 0) { @Model.ApellidoPaterno}" />
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido Materno:</label>
+                        <input class="form-control" name="apellidoMaterno" value="@if (Model.Id != 0) { @Model.ApellidoMaterno}" />
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Nacimiento:</label>
+                        <input type="date" class="form-control" name="fechaNacimiento" value="@if (Model.Id != 0) { @Model.FechaNacimiento}" />
+                    </div>
+
+                    <button class="btn btn-success" type="submit">Guardar</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

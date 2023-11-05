@@ -1,0 +1,38 @@
+﻿@using Vuelos.Entidades
+@model dynamic
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Registro
+            </div>
+            <div class="panel-body">
+                <form action="@Url.Action("Guardar","Boleto")" method="post">
+                    <div class="form-group">
+                        <label>Seleccion el pasajero</label>
+                        <select class="form-control" name="pasajero_id">
+                            @foreach(Pasajero p in Model.Pasajeros)
+                            {
+                                <option value="@p.Id">@p.Nombre @p.ApellidoPaterno @p.ApellidoMaterno </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Seleccione el vuelo</label>
+                        <select class="form-control" name="vuelo_id">
+                            @foreach (Vuelo v in Model.Vuelos)
+                            {
+                                <option value="@v.Id">@v.Origen - @v.Destino @v.Fecha</option>
+                            }
+                        </select>
+                    </div>
+
+                    <button class="btn btn-success" type="submit">Crear boleto</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
