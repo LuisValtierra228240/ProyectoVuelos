@@ -13,7 +13,10 @@ namespace Vuelos.Base_de_datos
 
         public Conexion()
         {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+
+            var builder = WebApplication.CreateBuilder();
+            string connectionString = builder.Configuration.GetConnectionString("connectionString");
+            //string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
             connection = new MySqlConnection(connectionString);
         }
 

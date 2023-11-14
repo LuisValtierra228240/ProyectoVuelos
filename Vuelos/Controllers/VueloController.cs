@@ -39,7 +39,7 @@ namespace Proyecto_vuelos.Controllers
             //{
                 //return RedirectToAction("Index", "Login");
             //}
-            //Vuelo.Guardar(id, origen, destino, idAvion, capacidad, DateTime.Parse(fecha));
+            Vuelo.Guardar(id, origen, destino, idAvion, capacidad, DateTime.Parse(fecha));
             return RedirectToAction("Index");
         }
 

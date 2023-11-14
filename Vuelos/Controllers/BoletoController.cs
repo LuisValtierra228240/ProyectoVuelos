@@ -47,7 +47,7 @@ namespace Proyecto_vuelos.Controllers
 
         // POST: Boleto/Guardar
         [HttpPost]
-        public ActionResult Guardar(FormCollection collection)
+        public ActionResult Guardar(IFormCollection collection)
         {
             try
             {
