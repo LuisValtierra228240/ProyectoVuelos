@@ -16,7 +16,8 @@ namespace Vuelos.Entidades
         public string Destino { get; set; }
         public Avion Avion { get; set; }
         public int Capacidad { get; set; }
-        public DateTime Fecha { get; set; }
+        public DateTime FechaPartida { get; set; }
+        public DateTime FechaLlegada { get; set; }
         public List<Pasajero> pasajeros;
 
 
@@ -29,7 +30,7 @@ namespace Vuelos.Entidades
                 if (conexion.OpenConnection())
                 {
                     string query = "SELECT vuelo.id, vuelo.origen, vuelo.destino, " +
-                        "vuelo.capacidad, vuelo.fecha, avion.id AS idAvion, avion.nombre " +
+                        "vuelo.capacidad, vuelo.fechaPartida, vuelo.fechaLlegada, avion.id AS idAvion, avion.nombre " +
                         "AS nombreAvion, avion.placa AS placaAvion FROM vuelo INNER JOIN avion " +
                         "ON vuelo.idAvion = avion.id WHERE vuelo.id = @id;";
 
@@ -43,7 +44,8 @@ namespace Vuelos.Entidades
                         vuelo.Origen = dataReader["origen"].ToString();
                         vuelo.Destino = dataReader["destino"].ToString();
                         vuelo.Capacidad = int.Parse(dataReader["capacidad"].ToString());
-                        vuelo.Fecha = DateTime.Parse(dataReader["fecha"].ToString());
+                        vuelo.FechaPartida = DateTime.Parse(dataReader["fechaPartida"].ToString());
+                        vuelo.FechaLlegada = DateTime.Parse(dataReader["fechaLlegada"].ToString());
 
                         Avion avion = new Avion();
                         avion.Id = int.Parse(dataReader["idAvion"].ToString());
@@ -72,7 +74,7 @@ namespace Vuelos.Entidades
                 Conexion conexion = new Conexion();
                 if (conexion.OpenConnection())
                 {
-                    string query = "SELECT vuelo.id, vuelo.origen, vuelo.destino, vuelo.capacidad, vuelo.fecha," +
+                    string query = "SELECT vuelo.id, vuelo.origen, vuelo.destino, vuelo.capacidad, vuelo.fechaPartida, vuelo.fechaLlegada," +
                         "\r\navion.id AS idAvion, avion.nombre AS nombreAvion, avion.placa AS placaAvion," +
                         "\r\npasajero.id AS id_pasajero, pasajero.nombre AS nombre_pasajero, pasajero.apellidoPaterno as apellido_paterno_pasajero," +
                         "\r\npasajero.apellidoMaterno AS apellido_materno_pasajero, pasajero.fechaNacimiento AS fecha_nacimiento_pasajero" +
@@ -92,7 +94,8 @@ namespace Vuelos.Entidades
                         vuelo.Origen = dataReader["origen"].ToString();
                         vuelo.Destino = dataReader["destino"].ToString();
                         vuelo.Capacidad = int.Parse(dataReader["capacidad"].ToString());
-                        vuelo.Fecha = DateTime.Parse(dataReader["fecha"].ToString());
+                        vuelo.FechaPartida = DateTime.Parse(dataReader["fechaPartida"].ToString());
+                        vuelo.FechaLlegada = DateTime.Parse(dataReader["fechaLlegada"].ToString());
 
                         Avion avion = new Avion();
                         avion.Id = int.Parse(dataReader["idAvion"].ToString());
@@ -130,7 +133,7 @@ namespace Vuelos.Entidades
                 if (conexion.OpenConnection())
                 {
                     string query = "SELECT vuelo.id, vuelo.origen, vuelo.destino, " +
-                        "vuelo.capacidad, vuelo.fecha, avion.id AS idAvion, avion.nombre " +
+                        "vuelo.capacidad, vuelo.fechaPartida, vuelo.fechaLlegada, avion.id AS idAvion, avion.nombre " +
                         "AS nombreAvion, avion.placa AS placaAvion FROM vuelo INNER JOIN avion " +
                         "ON vuelo.idAvion = avion.id;";
                     MySqlCommand command = new MySqlCommand(query, conexion.connection);
@@ -145,7 +148,8 @@ namespace Vuelos.Entidades
                         vuelo.Origen = dataReader["origen"].ToString();
                         vuelo.Destino = dataReader["destino"].ToString();
                         vuelo.Capacidad = int.Parse(dataReader["capacidad"].ToString());
-                        vuelo.Fecha = DateTime.Parse(dataReader["fecha"].ToString());
+                        vuelo.FechaPartida = DateTime.Parse(dataReader["fechaPartida"].ToString());
+                        vuelo.FechaLlegada = DateTime.Parse(dataReader["fechaLlegada"].ToString());
 
                         Avion avion = new Avion();
                         avion.Id = int.Parse(dataReader["idAvion"].ToString());
@@ -166,7 +170,7 @@ namespace Vuelos.Entidades
             return vuelos;
         }
 
-        public static bool Guardar(int id, string origen, string destino, int idAvion, string capacidad, DateTime fecha)
+        public static bool Guardar(int id, string origen, string destino, int idAvion, string capacidad, DateTime fechaPartida, DateTime fechaLlegada)
         {
             bool result = false;
             try
@@ -178,25 +182,27 @@ namespace Vuelos.Entidades
 
                     if (id == 0)
                     {
-                        cmd.CommandText = "INSERT INTO vuelo (origen, destino, idAvion, capacidad, fecha) VALUES (@origen, @destino, @idAvion, @capacidad, @fecha);";
+                        cmd.CommandText = "INSERT INTO vuelo (origen, destino, idAvion, capacidad, fechaPartida, fechaLlegada) VALUES (@origen, @destino, @idAvion, @capacidad, @fechaPartida, @fechaLlegada);";
 
                         cmd.Parameters.AddWithValue("@origen", origen);
                         cmd.Parameters.AddWithValue("@destino", destino);
                         cmd.Parameters.AddWithValue("@idAvion", idAvion);
                         cmd.Parameters.AddWithValue("@capacidad", capacidad);
-                        cmd.Parameters.AddWithValue("@fecha", fecha);
+                        cmd.Parameters.AddWithValue("@fechaPartida", fechaPartida);
+                        cmd.Parameters.AddWithValue("@fechaLlegada", fechaLlegada);
 
                     }
                     else
                     {
-                        cmd.CommandText = "UPDATE vuelo SET origen = @origen, destino = @destino, idAvion = @idAvion, capacidad = @capacidad, fecha = @fecha WHERE id = @id;";
+                        cmd.CommandText = "UPDATE vuelo SET origen = @origen, destino = @destino, idAvion = @idAvion, capacidad = @capacidad, fechaPartida = @fechaPartida, fechaLlegada = @fechaLlegada WHERE id = @id;";
 
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.Parameters.AddWithValue("@origen", origen);
                         cmd.Parameters.AddWithValue("@destino", destino);
                         cmd.Parameters.AddWithValue("@idAvion", idAvion);
                         cmd.Parameters.AddWithValue("@capacidad", capacidad);
-                        cmd.Parameters.AddWithValue("@fecha", fecha);
+                        cmd.Parameters.AddWithValue("@fechaPartida", fechaPartida);
+                        cmd.Parameters.AddWithValue("@fechaLlegada", fechaLlegada);
 
                     }
 

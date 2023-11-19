@@ -31,7 +31,8 @@
                                 <th scope="col">Destino</th>
                                 <th scope="col">Avion</th>
                                 <th scope="col">Capacidad</th>
-                                <th scope="col">Fecha</th>
+                                <th scope="col">Fecha de Partida</th>
+                                <th scope="col">Fecha de Llegada</th>
                                 <th scope="col" style="width: 5%">Acciones</th>
                             </tr>
                         </thead>
@@ -55,12 +56,16 @@
                                         @v.Capacidad
                                     </td>
                                     <td>
-                                        @v.Fecha
+                                        @v.FechaPartida
+                                    </td>
+                                    <td>
+                                        @v.FechaLlegada
                                     </td>
                                     <td>
                                         <a href="@Url.Action("Pasajeros", "Vuelo", new { id = v.Id})">Ver pasajeros</a>
                                     </td>
                                     <td>
+                                        <a href="@Url.Action("Detalles","Vuelo", new { id = v.Id})" class="btn btn-success btn-circle"><i class="fa fa-eye"></i></a>
                                         <a href="@Url.Action("Registro","Vuelo", new { id = v.Id})" class="btn btn-primary btn-circle"><i class="fa fa-pencil"></i></a>
                                         <a onclick="eliminar(@v.Id)" class="btn btn-danger btn-circle"><i class="fa fa-trash-o"></i></a>
                                     </td>

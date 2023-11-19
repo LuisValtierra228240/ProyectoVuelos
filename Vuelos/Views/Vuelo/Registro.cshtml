@@ -41,8 +41,13 @@
                         <input class="form-control" name="capacidad" value="@if (Model.Vuelo.Id != 0) { @Model.Vuelo.Capacidad}" />
                     </div>
                     <div class="form-group">
-                        <label>Fecha:</label>
-                        <input type="datetime-local" class="form-control" name="fecha" value="@if (Model.Vuelo.Id != 0) { @Model.Vuelo.Fecha.ToString("yyyy-MM-ddThh:mm")}"/>
+                        <label>Fecha de Partida:</label>
+                        <input type="datetime-local" class="form-control" name="fechaPartida" value="@if (Model.Vuelo.Id != 0) { @Model.Vuelo.FechaPartida.ToString("yyyy-MM-ddThh:mm")}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Llegada:</label>
+                        <input type="datetime-local" class="form-control" name="fechaLlegada" value="@if (Model.Vuelo.Id != 0) { @Model.Vuelo.FechaLlegada.ToString("yyyy-MM-ddThh:mm")}"/>
                     </div>
 
                     <button class="btn btn-success" type="submit">Guardar</button>

@@ -46,7 +46,7 @@
                                         <a href="@Url.Action("Detalles","Pasajero", new { id = b.Pasajero.Id})">@b.Pasajero.Nombre</a>
                                     </td>
                                     <td>
-                                        @b.Vuelo.Fecha
+                                        @b.Vuelo.FechaPartida
                                     </td>
                                     <td>
                                         @b.Vuelo.Origen
@@ -55,6 +55,7 @@
                                         @b.Vuelo.Destino
                                     </td>
                                     <td>
+                                        <a href="@Url.Action("Detalles","Boleto", new { id = b.Id})" class="btn btn-success btn-circle"><i class="fa fa-eye"></i></a>
                                         <a onclick="eliminar(@b.Id)" class="btn btn-danger btn-circle"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>

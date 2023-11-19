@@ -57,6 +57,21 @@ namespace Proyecto_vuelos.Controllers
                 int vueloid = int.Parse(collection["vuelo_id"]);
                 boleto.Vuelo = Vuelo.GetById(vueloid);
 
+                List<Boleto> Boletos = Boleto.GetByVuelo(vueloid);
+
+                List<int> numeros = new List<int>();
+
+                foreach(Boleto b in Boletos){
+                    numeros.Add(b.Asiento);
+                }
+
+                for(int i = 1; i<= boleto.Vuelo.Capacidad;i++){
+                    if(!numeros.Contains(i)){
+                        boleto.Asiento = i;
+                        break;
+                    }
+                }
+
                 Boleto.Guardar(boleto);
                 
 

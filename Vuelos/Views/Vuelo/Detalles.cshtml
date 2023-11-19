@@ -1,0 +1,43 @@
+﻿@using Vuelos.Entidades
+@model dynamic
+
+@{ ViewBag.Title = "Vuelo: " + string.Concat(Model.Vuelo.Id.ToString());}
+
+<div class="col-lg-6">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <p>
+                Vuelo @string.Concat(Model.Vuelo.Id.ToString())
+            </p>
+        </div>
+        <div class="panel-body">
+            <p>Origen: @Model.Vuelo.Origen</p>
+            <p>Destino: @Model.Vuelo.Destino</p>
+            <hr />
+            <p>Avión: @Model.Vuelo.Avion.Nombre</p>
+            <p>Fecha de Partida: @Model.Vuelo.FechaPartida</p>
+            <p>Fecha de Llegada: @Model.Vuelo.FechaLlegada</p>
+            <p>Prueba: @Model.porcentaje </p>
+            <p>Capacidad: @Model.Vuelo.Capacidad Personas</p>
+            <hr/>
+            <p>Rastreo: </p>
+            <p style="float: left; margin-right:5px;">Origen</p> <p style="float: right; margin-left:5px;">Destino</p>
+            <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: @Model.porcentaje%" aria-valuenow="@Model.porcentaje" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <p>Asientos: </p>
+
+            <div>
+            @for(int i = 1; i<= Model.Vuelo.Capacidad; i++)
+            {
+                <i class="fa fa-user" style="color: @(Model.Boletos.Contains(i) ? "red;" : "green;") font-size:25px;"></i>
+            }
+            </div>
+
+            <a href="@Url.Action("ComprarBoleto","Vuelo", new { id = Model.Vuelo.Id})" class="btn btn-primary" style="float: left:">Comprar Boleto</a>
+            <a href="@Url.Action("VerBoletos","Vuelo", new { id = Model.Vuelo.Id})" class="btn btn-primary" style="float: right;">Ver Boletos</a>
+
+        </div>
+
+    </div>
+</div>

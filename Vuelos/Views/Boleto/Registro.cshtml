@@ -19,10 +19,10 @@
                     </div>
                     <div class="form-group">
                         <label>Seleccione el vuelo</label>
-                        <select class="form-control" name="vuelo_id">
+                        <select class="form-control" name="vuelo_id")>
                             @foreach (Vuelo v in Model.Vuelos)
                             {
-                                <option value="@v.Id">@v.Origen - @v.Destino @v.Fecha</option>
+                                <option value="@v.Id">@v.Origen - @v.Destino @v.FechaPartida</option>
                             }
                         </select>
                     </div>
