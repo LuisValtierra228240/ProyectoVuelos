@@ -45,6 +45,12 @@ namespace Proyecto_vuelos.Controllers
 
         }
 
+        public ActionResult Imprimir(int id)
+        {
+            Boleto boleto = Boleto.GetById(id);
+            return View(boleto);
+        }
+
         // POST: Boleto/Guardar
         [HttpPost]
         public ActionResult Guardar(IFormCollection collection)
@@ -72,10 +78,10 @@ namespace Proyecto_vuelos.Controllers
                     }
                 }
 
-                Boleto.Guardar(boleto);
+                boleto.Id = Boleto.Guardar(boleto);
                 
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Detalles", new {id = boleto.Id});
             }
             catch(Exception ex)
             {

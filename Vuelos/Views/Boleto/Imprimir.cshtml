@@ -1,0 +1,78 @@
+@{
+    Layout = null;
+
+}
+@using Vuelos.Entidades
+@model Boleto
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobante de Compra: @Model.Id</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="~/Content/boleto/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/boleto/css/formato.css">
+</head>
+<body onload="window.print()">
+
+    <section id="main_content">
+        <header id="main_header">
+        <img src="~/logo.png" width="187px" height="87px" alt="Logo">
+        <h4 id="fecha_compra">@Model.fecha_creacion</h4>
+        <hr class="borde">
+        </header>
+
+        <div id="wrapper_content">
+
+            <div class="informacion">
+                <ul class="list_reset">
+                    <li class="col col-sm offset-sm-1">
+                        <p class="titulo">Nombre</p>
+                        <p class="subtitulo">@Model.Pasajero.Nombre @Model.Pasajero.ApellidoPaterno @Model.Pasajero.ApellidoMaterno</p>
+                    </li>
+                    <li class="col col-sm offset-sm-1">
+                        <p class="titulo">Vuelo</p>
+                        <p class="subtitulo">@Model.Vuelo.Id</p>
+                    </li>
+                    <li class="col col-sm offset-sm-1">
+                        <p class="titulo">Avión</p>
+                        <p class="subtitulo">@Model.Vuelo.Avion.Nombre</p>
+                    </li>
+                    <li class="col col-sm offset-sm-1">
+                        <p class="titulo">Asiento</p>
+                        <p class="subtitulo">@Model.Asiento</p>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="informacion">
+                <ul class="list_reset">
+                    <li class="col col-sm offset-sm-1">
+                        <p class="titulo">Origen</p>
+                        <p class="subtitulo">@Model.Vuelo.Origen</p>
+
+                        <p class="titulo">Destino</p>
+                        <p class="subtitulo">@Model.Vuelo.Destino</p>
+                    </li>
+                    <li class="col col-sm offset-sm-1">
+                        <p class="titulo">Fecha de Partida</p>
+                        <p class="subtitulo">@Model.Vuelo.FechaPartida</p>
+                    </li>
+                    <li class="col col-sm offset-sm-1">
+                        <p class="titulo">Fecha de Llegada</p>
+                        <p class="subtitulo">@Model.Vuelo.FechaLlegada</p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </section>
+    
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/boleto/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -87,9 +87,9 @@ namespace Vuelos.Entidades
             return pasajeros;
         }
 
-        public static bool Guardar(int id, string nombre, string apellidoPaterno, string apellidoMaterno, string fechaNacimiento)
+        public static int Guardar(int id, string nombre, string apellidoPaterno, string apellidoMaterno, string fechaNacimiento)
         {
-            bool result = false;
+            int result = -1;
             try
             {
                 Conexion conexion = new Conexion();
@@ -117,7 +117,9 @@ namespace Vuelos.Entidades
                         cmd.Parameters.AddWithValue("@fechaNacimiento", fechaNacimiento);
                     }
 
-                    result = cmd.ExecuteNonQuery() == 1;
+                    //result = cmd.ExecuteNonQuery() == 1;
+                    cmd.ExecuteNonQuery();
+                    result = (int) cmd.LastInsertedId;
                 }
             }
             catch (Exception ex)

@@ -78,9 +78,9 @@ namespace Vuelos.Entidades
             return aviones;
         }
 
-        public static bool Guardar(int id, string placa, string nombre)
+        public static int Guardar(int id, string placa, string nombre)
         {
-            bool result = false;
+            int result = -1;
             try
             {
                 Conexion conexion = new Conexion();
@@ -104,7 +104,9 @@ namespace Vuelos.Entidades
                         cmd.Parameters.AddWithValue("@nombre", nombre);
                     }
 
-                    result = cmd.ExecuteNonQuery() == 1;
+                    //result = cmd.ExecuteNonQuery() == 1;
+                    cmd.ExecuteNonQuery();
+                    result = (int) cmd.LastInsertedId;
                 }
             }
             catch (Exception ex)

@@ -14,9 +14,9 @@ namespace Vuelos.Entidades
         public string Correo { get; set; }
         public string Contra { get; set; }
 
-        public static bool Guardar(Usuario usuario)
+        public static int Guardar(Usuario usuario)
         {
-            bool result = false;
+            int result = -1;
             try
             {
                 Conexion conexion = new Conexion();
@@ -42,8 +42,9 @@ namespace Vuelos.Entidades
                         cmd.Parameters.AddWithValue("@contra", usuario.Contra);
                     }
 
-                    result = cmd.ExecuteNonQuery() == 1;
-                    conexion.CloseConnection();
+                    //result = cmd.ExecuteNonQuery() == 1;
+                    cmd.ExecuteNonQuery();
+                    result = (int) cmd.LastInsertedId;
                 }
             }
             catch (Exception ex)

@@ -202,9 +202,9 @@ namespace Vuelos.Entidades
             return boleto;
         }
 
-        public static bool Guardar(Boleto boleto)
+        public static int Guardar(Boleto boleto)
         {
-            bool result = false;
+            int result = -1;
             try
             {
                 Conexion conexion = new Conexion();
@@ -219,7 +219,9 @@ namespace Vuelos.Entidades
                     cmd.Parameters.AddWithValue("@id_pasajero", boleto.Pasajero.Id);
                     cmd.Parameters.AddWithValue("@asiento", boleto.Asiento);
 
-                    result = cmd.ExecuteNonQuery() == 1;
+                    //result = cmd.ExecuteNonQuery() == 1;
+                    cmd.ExecuteNonQuery();
+                    result = (int) cmd.LastInsertedId;
                 }
             }
             catch (Exception ex)

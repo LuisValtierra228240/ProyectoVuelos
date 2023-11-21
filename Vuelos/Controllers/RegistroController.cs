@@ -28,7 +28,7 @@ namespace Proyecto_vuelos.Controllers
 
                     if (!Usuario.existe(correo))
                     {
-                        if (Usuario.Guardar(u))
+                        if (Usuario.Guardar(u) != -1)
                         {
                             //Response.Write("Guardado correctamente");
                             return RedirectToAction("Index", "Login");

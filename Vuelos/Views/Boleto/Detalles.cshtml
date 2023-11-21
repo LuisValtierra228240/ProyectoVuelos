@@ -22,6 +22,8 @@
             <p>Fecha de Partida: @Model.Vuelo.FechaPartida</p>
             <p>Fecha de Llegada: @Model.Vuelo.FechaLlegada</p>
             <p>Avion: @Model.Vuelo.Avion.Nombre</p>
+
+            <a href="@Url.Action("Imprimir","Boleto", new { id = Model.Id})" target="_blank" class="btn btn-primary" style="display: block; margin: auto;">Imprimir Comprobante</a>
         </div>
 
     </div>

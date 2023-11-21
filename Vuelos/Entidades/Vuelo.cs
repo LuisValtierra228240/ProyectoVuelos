@@ -170,9 +170,9 @@ namespace Vuelos.Entidades
             return vuelos;
         }
 
-        public static bool Guardar(int id, string origen, string destino, int idAvion, string capacidad, DateTime fechaPartida, DateTime fechaLlegada)
+        public static int Guardar(int id, string origen, string destino, int idAvion, string capacidad, DateTime fechaPartida, DateTime fechaLlegada)
         {
-            bool result = false;
+            int result = -1;
             try
             {
                 Conexion conexion = new Conexion();
@@ -206,7 +206,9 @@ namespace Vuelos.Entidades
 
                     }
 
-                    result = cmd.ExecuteNonQuery() == 1;
+                    //result = cmd.ExecuteNonQuery() == 1;
+                    cmd.ExecuteNonQuery();
+                    result = (int) cmd.LastInsertedId;
                 }
             }
             catch (Exception ex)
