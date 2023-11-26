@@ -78,12 +78,21 @@ namespace Proyecto_vuelos.Controllers
                     }
                 }
 
+                dynamic model = new ExpandoObject();
+                model.Pasajeros = Pasajero.GetAll();
+                model.Vuelos = Vuelo.GetAll();
+    
+                if (Boleto.PasajeroTieneBoletoEnVuelo(boleto.Pasajero.Id, vueloid))
+                {
+                    Response.StatusCode = 409;
+                    ViewBag.ErrorMessage = "El pasajero ya tiene un boleto para este vuelo.";
+                    return View("Registro", model);
+                }
+
                 if (Vuelo.GetNumeroBoletos(vueloid) >= boleto.Vuelo.Capacidad) {
                     Response.StatusCode = 409;
                     ViewBag.ErrorMessage = "El vuelo se encuentra lleno";
-                    dynamic model = new ExpandoObject();
-                    model.Pasajeros = Pasajero.GetAll();
-                    model.Vuelos = Vuelo.GetAll();
+
                     return View("Registro", model);
                 }
                 boleto.Id = Boleto.Guardar(boleto);
@@ -102,5 +111,7 @@ namespace Proyecto_vuelos.Controllers
             Boleto.Eliminar(id);
             return RedirectToAction("Index", "Boleto");
         }
+
+        
     }
 }

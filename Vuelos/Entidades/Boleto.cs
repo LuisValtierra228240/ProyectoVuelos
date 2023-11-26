@@ -252,5 +252,34 @@ namespace Vuelos.Entidades
             }
             return result;
         }
+
+        public static bool PasajeroTieneBoletoEnVuelo(int pasajeroId, int vueloId)
+        {
+            try
+            {
+                Conexion conexion = new Conexion();
+                if (conexion.OpenConnection())
+                {
+                    string query = "SELECT COUNT(*) FROM boleto WHERE id_pasajero = @pasajeroId AND id_vuelo = @vueloId;";
+                    MySqlCommand cmd = new MySqlCommand(query, conexion.connection);
+                    cmd.Parameters.AddWithValue("@pasajeroId", pasajeroId);
+                    cmd.Parameters.AddWithValue("@vueloId", vueloId);
+
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    conexion.CloseConnection();
+
+                    return count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return false;
+        }
     }
+
+    
 }
