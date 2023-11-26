@@ -7,9 +7,15 @@
                 Registro
             </div>
             <div class="panel-body">
+                @if (ViewBag.ErrorMessage != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.ErrorMessage
+                    </div>
+                }
                 <form action="@Url.Action("Guardar","Boleto")" method="post">
                     <div class="form-group">
-                        <label>Seleccion el pasajero</label>
+                        <label>Seleccionar el pasajero</label>
                         <select class="form-control" name="pasajero_id">
                             @foreach(Pasajero p in Model.Pasajeros)
                             {
@@ -18,8 +24,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Seleccione el vuelo</label>
-                        <select class="form-control" name="vuelo_id")>
+                        <label>Seleccionar el vuelo</label>
+                        <select class="form-control" name="vuelo_id">
                             @foreach (Vuelo v in Model.Vuelos)
                             {
                                 <option value="@v.Id">@v.Origen - @v.Destino @v.FechaPartida</option>
@@ -34,5 +40,3 @@
         </div>
     </div>
 </div>
-
-

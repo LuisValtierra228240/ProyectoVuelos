@@ -78,6 +78,14 @@ namespace Proyecto_vuelos.Controllers
                     }
                 }
 
+                if (Vuelo.GetNumeroBoletos(vueloid) >= boleto.Vuelo.Capacidad) {
+                    Response.StatusCode = 409;
+                    ViewBag.ErrorMessage = "El vuelo se encuentra lleno";
+                    dynamic model = new ExpandoObject();
+                    model.Pasajeros = Pasajero.GetAll();
+                    model.Vuelos = Vuelo.GetAll();
+                    return View("Registro", model);
+                }
                 boleto.Id = Boleto.Guardar(boleto);
                 
 
