@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 
 namespace Proyecto_vuelos.Controllers
@@ -39,7 +40,21 @@ namespace Proyecto_vuelos.Controllers
             {
                 dynamic model = new ExpandoObject();
                 model.Pasajeros = Pasajero.GetAll();
-                model.Vuelos = Vuelo.GetAll();
+
+                List<Vuelo> vuelos = Vuelo.GetAll();
+                List<Vuelo> vuelosDisponibles = new List<Vuelo>();
+
+                foreach(Vuelo v in vuelos){
+                    double porcentaje = (DateTime.Now - v.FechaPartida).TotalSeconds*100/(v.FechaLlegada - v.FechaPartida).TotalSeconds;
+                    
+                    if (porcentaje <= 0){
+                        vuelosDisponibles.Add(v);
+                    }
+
+                }
+
+                model.Vuelos = vuelosDisponibles;
+
                 return View(model);
             }
 
@@ -62,6 +77,7 @@ namespace Proyecto_vuelos.Controllers
                 boleto.Pasajero = Pasajero.GetById(int.Parse(collection["pasajero_id"]));
                 int vueloid = int.Parse(collection["vuelo_id"]);
                 boleto.Vuelo = Vuelo.GetById(vueloid);
+                double porcentaje = (DateTime.Now - boleto.Vuelo.FechaPartida).TotalSeconds*100/(boleto.Vuelo.FechaLlegada - boleto.Vuelo.FechaPartida).TotalSeconds;
 
                 List<Boleto> Boletos = Boleto.GetByVuelo(vueloid);
 
@@ -82,6 +98,13 @@ namespace Proyecto_vuelos.Controllers
                 model.Pasajeros = Pasajero.GetAll();
                 model.Vuelos = Vuelo.GetAll();
     
+                if (porcentaje > 0){
+                    Response.StatusCode = 409;
+                    ViewBag.ErrorMessage = "El vuelo ya no está disponible.";
+
+                    return View("Registro", model);
+                }
+                
                 if (Boleto.PasajeroTieneBoletoEnVuelo(boleto.Pasajero.Id, vueloid))
                 {
                     Response.StatusCode = 409;
@@ -91,10 +114,11 @@ namespace Proyecto_vuelos.Controllers
 
                 if (Vuelo.GetNumeroBoletos(vueloid) >= boleto.Vuelo.Capacidad) {
                     Response.StatusCode = 409;
-                    ViewBag.ErrorMessage = "El vuelo se encuentra lleno";
+                    ViewBag.ErrorMessage = "El vuelo se encuentra lleno.";
 
                     return View("Registro", model);
                 }
+
                 boleto.Id = Boleto.Guardar(boleto);
                 
 

@@ -33,8 +33,13 @@
             }
             </div>
 
+        @if(Model.porcentaje <= 0)
+        {
             <a href="@Url.Action("ComprarBoleto","Vuelo", new { id = Model.Vuelo.Id})" class="btn btn-primary" style="float: left:">Comprar Boleto</a>
             <a href="@Url.Action("VerBoletos","Vuelo", new { id = Model.Vuelo.Id})" class="btn btn-primary" style="float: right;">Ver Boletos</a>
+        } else {
+            <a href="@Url.Action("VerBoletos","Vuelo", new { id = Model.Vuelo.Id})" class="btn btn-primary" style="display: block; margin: auto;">Ver Boletos</a>
+        }
 
         </div>
 
