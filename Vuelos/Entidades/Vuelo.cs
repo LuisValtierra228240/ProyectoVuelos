@@ -242,6 +242,38 @@ namespace Vuelos.Entidades
             return result;
         }
 
+        public static int GetNumeroBoletos(int vueloID)
+        {
+            int numeroBoletos = 0;
+
+            try
+            {
+                Conexion conexion = new Conexion();
+                if (conexion.OpenConnection())
+                {
+                    string query = "SELECT COUNT(*) AS boletosCount FROM boleto WHERE id_vuelo = @vueloID;";
+                    MySqlCommand cmd = new MySqlCommand(query, conexion.connection);
+                    cmd.Parameters.AddWithValue("@vueloID", vueloID);
+
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        numeroBoletos = Convert.ToInt32(result);
+                    }
+
+                    conexion.CloseConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return numeroBoletos;
+        }
+
+
 
     }
 }
