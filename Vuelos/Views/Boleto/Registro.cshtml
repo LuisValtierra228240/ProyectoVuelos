@@ -7,10 +7,10 @@
                 Registro
             </div>
             <div class="panel-body">
-                <form action="@Url.Action("Guardar","Boleto")" method="post">
+                <form id="formulario" action="@Url.Action("Guardar","Boleto")" method="post">
                     <div class="form-group">
                         <label>Seleccion el pasajero</label>
-                        <select class="form-control" name="pasajero_id">
+                        <select required class="form-control" name="pasajero_id">
                             @foreach(Pasajero p in Model.Pasajeros)
                             {
                                 <option value="@p.Id">@p.Nombre @p.ApellidoPaterno @p.ApellidoMaterno </option>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group">
                         <label>Seleccione el vuelo</label>
-                        <select class="form-control" name="vuelo_id")>
+                        <select required class="form-control" name="vuelo_id")>
                             @foreach (Vuelo v in Model.Vuelos)
                             {
                                 <option value="@v.Id">@v.Origen - @v.Destino @v.FechaPartida</option>
@@ -27,7 +27,7 @@
                         </select>
                     </div>
 
-                    <button class="btn btn-success" type="submit">Crear boleto</button>
+                    <button class="btn btn-success" type="button" onclick="guardar()">Guardar</button>
 
                 </form>
             </div>
@@ -35,4 +35,39 @@
     </div>
 </div>
 
+@section js
+{
 
+    <!-- Sweet Alert 2 JavaScript-->
+    <script src="~/Content/js/proyectoVuelos/sweetalert2.js"></script>
+
+    <script>
+    function guardar() {
+    var form = document.getElementById("formulario");
+    if (form.checkValidity()) {
+      
+      Swal.fire({
+        title: '¿Desea Guardar los Cambios?',
+        text: "Aseguresé de que su información sea correcta",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit()
+        }
+    })
+    } else {
+        Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '¡Asegúrese de llenar los campos y que la información sea válida!',
+        })
+    }
+}
+</script>
+
+}

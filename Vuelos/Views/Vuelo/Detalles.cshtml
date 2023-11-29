@@ -17,7 +17,6 @@
             <p>Avión: @Model.Vuelo.Avion.Nombre</p>
             <p>Fecha de Partida: @Model.Vuelo.FechaPartida</p>
             <p>Fecha de Llegada: @Model.Vuelo.FechaLlegada</p>
-            <p>Prueba: @Model.porcentaje </p>
             <p>Capacidad: @Model.Vuelo.Capacidad Personas</p>
             <hr/>
             <p>Rastreo: </p>
@@ -25,7 +24,7 @@
             <div class="progress">
             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: @Model.porcentaje%" aria-valuenow="@Model.porcentaje" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <p>Asientos: </p>
+            <p><strong>Asientos: </strong></p>
 
             <div>
             @for(int i = 1; i<= Model.Vuelo.Capacidad; i++)
